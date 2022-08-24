@@ -1,0 +1,52 @@
+<div class="container">
+  <button (click)="restartGame()">Trocar Animal</button>
+
+  <h1>Adivinhe qual é o Animal</h1>
+
+  <div class="wordSecret">
+    <p class="kicks">{{ guesses }}</p>
+    <p class="text">Chutes disponíveis</p>
+
+    <!-- botão que traz as palavras -->
+    <div class="wrapperCard">
+      <div class="card" *ngFor="let letter of asteriscs">
+        <p class="textCard">
+          <strong>{{ letter }}</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!asteriscs.join('').includes('*')">
+    <img class="roda" src="./assets/imgs/{{ asteriscs.join('') }}.jpg" />
+  </div>
+
+  <p class="text">Erros:</p>
+  <span class="errors">{{ wrong_words.join(" - ") }}</span>
+
+  <div class="wrapperInputBtn">
+    <input
+      (keyup.enter)="testLetter()"
+      maxlength="1"
+      type="text"
+      class="form-control"
+      id="name"
+      required
+      [(ngModel)]="inputData"
+    />
+    <button class="btn-ok" (click)="testLetter()">Ok</button>
+  </div>
+
+  <p class="danger">
+    {{ guesses == 0 ? "Você Perdeu 😢 " : "" }} {{ victoryMessage() }}
+  </p>
+
+  <div class="keyboard">
+    <button
+      *ngFor="let letter of teclado"
+      (click)="inputData = letter; testLetter()"
+    >
+      {{ letter }}
+    </button>
+  </div>
+</div>
